@@ -1,5 +1,5 @@
 name: Tennis Resa
-version: "1.0.0"
+version: "1.0.1"
 slug: bj_resa
 description: Réservation automatique des courts de tennis sur Balle Jaune
 url: https://github.com/cedricteck/bj-resa-addon/tree/main/bj_resa

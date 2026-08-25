@@ -55,6 +55,10 @@ port n'est publié sur le réseau local.
   rejouée chaque semaine. Le bouton *Lancer un run maintenant* permet de tester sans
   attendre l'heure du cron.
 
+  Une demande ponctuelle n'est honorée que si Balle Jaune sert bien le jour visé : lancée
+  en journée, avant l'ouverture de 22h30, elle est **ajournée** plutôt que réservée pour
+  aujourd'hui. Le run du soir retente jusqu'à l'ouverture.
+
   Le champ **Partenaire** accepte un nom libre, cherché dans l'annuaire du club à
   l'enregistrement : tape assez de lettres pour lever l'ambiguïté (prénom + nom). Si
   plusieurs membres correspondent, les candidats sont listés. Laisse le champ vide pour
@@ -75,7 +79,9 @@ port n'est publié sur le réseau local.
 | `ballejaune.user n'a pas été résolu` | L'option `user` (ou `password`) est vide : l'add-on s'arrête au lieu d'attendre 22h30 |
 | `Accès à ballejaune.com via le proxy ...` | Un proxy a été détecté et est utilisé |
 | `Balle Jaune est en version N` | Le site a été déployé : rejouer les tests de parsing |
-| `Balle Jaune a servi le ... alors qu'on demandait ...` | Fenêtre de réservation plus courte que la configuration |
+| `Le ... n'est pas ouvert : Balle Jaune a servi le jour courant` | Normal en journée : le jour visé n'ouvre qu'à 22h30 |
+| `N demande(s) ajournée(s) : le ... n'est pas ouvert` | Le jour visé n'est pas encore ouvert ; le run retente jusqu'à l'ouverture |
+| `Balle Jaune a servi le ... alors qu'on demandait ...` | Fenêtre de réservation réellement plus courte que la configuration |
 | `Contrôle de transport OK` | Connectivité, TLS et parsing du formulaire de login validés |
 
 ## Limites
