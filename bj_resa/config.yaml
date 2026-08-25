@@ -1,0 +1,60 @@
+name: Tennis Resa
+version: "1.0.0"
+slug: bj_resa
+description: Réservation automatique des courts de tennis sur Balle Jaune
+url: https://github.com/cedricteck/bj-resa-addon/tree/main/bj_resa
+
+# N'ajoute une architecture ici QUE si l'image correspondante est publiée sur le registre,
+# sinon le Supervisor cherchera une image inexistante.
+arch:
+  - amd64
+
+# Image préconstruite : la machine Home Assistant ne compile rien, elle tire cette image
+# au tag égal à "version" ci-dessus. {arch} est remplacé par le Supervisor.
+# Ce dépôt ne contient donc ni sources ni Dockerfile — seulement de quoi déclarer l'add-on.
+image: ghcr.io/cedricteck/bj-resa-{arch}
+
+# s6-overlay est fourni par l'image de base : on désactive l'init de Docker.
+init: false
+boot: auto
+startup: application
+
+# L'IHM s'affiche dans la barre latérale, authentifiée par Home Assistant.
+# Aucun port n'est publié : l'interface n'est PAS joignable depuis le réseau local,
+# uniquement à travers Home Assistant.
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:tennis
+panel_title: Tennis Resa
+# panel_admin vaut true par défaut, ce qui réserve l'entrée de la barre latérale aux
+# administrateurs. À false, tous les utilisateurs Home Assistant la voient.
+# ATTENTION : l'application n'a aucune notion d'utilisateur — quiconque ouvre l'IHM peut
+# réserver et annuler sur le compte du club.
+panel_admin: false
+
+# Les demandes éditées depuis l'IHM vivent dans /data/requests.json, que le Supervisor
+# persiste et inclut dans les sauvegardes Home Assistant. Aucun "map" nécessaire.
+
+options:
+  user: ""
+  password: ""
+  timezone: Europe/Paris
+  max_booking_day_away: 2
+  guests: 1
+  cron: "50 29 22 * * *"
+  race_attempts: 20
+  race_delay_ms: 500
+  proxy_url: ""
+  log_level: info
+
+schema:
+  user: str
+  password: password
+  timezone: str
+  max_booking_day_away: int(0,14)
+  guests: int(0,3)
+  cron: str
+  race_attempts: int(1,200)
+  race_delay_ms: int(100,60000)
+  proxy_url: str?
+  log_level: list(trace|debug|info|warn|error)

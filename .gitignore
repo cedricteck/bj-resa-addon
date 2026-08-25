@@ -1,0 +1,17 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.iws
+*.ipr
+
+### Rien de compilé ne doit entrer ici ###
+# L'add-on tourne depuis une image publiée sur ghcr.io : aucun jar, aucun binaire, aucune
+# archive n'a de raison d'être committé dans ce dépôt public.
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+### OS ###
+.DS_Store
